@@ -6,22 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
     <title>Weather App</title>
 </head>
 
 <body>
 
-    <div class="sky">Weather is displayed here:</div>
-    <div class="temp"></div>
-    <div class="wind"></div>
+    <div class="flex-container">
+
+        <div class="left-side">
+            <div class="location">Location</div>    
+            <div class="sky">Sky</div>
+            <div class="temp">Temp</div>
+            <div class="wind">Wind</div>
+        </div>
+
+        <div class="right-side">
+            <div class="current-weather">Current Weather</div>
+            <div class="search-location">Search for a location</div>
+            <form>
+                <label for="search"></label>
+                <input type="search" id="search" name="search" placeholder="Fex: Oslo">
+                <input type="submit" value="Search">
+            </form>
+            <label for="tempswitch" class="switch">
+                <input type="checkbox" id="tempswitch">
+                <span class="slider round"></span>
+                <span class="celsius">C</span>
+            </label>
+            <div class="celsius-fahrenheit">Celsius/Fahrenheit</div>
+
+        </div>
 
 
-    <form>
-        <label for="search">Choose a city to see it´s weather forecast</label>
-        <input type="search" id="search" name="search" placeholder="fex: Oslo">
-        <input type="submit" value="Submit">
-    </form>
+    </div>
+
+
 
 </body>
 
