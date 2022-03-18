@@ -22,6 +22,12 @@ async function getCityForecast() {
 
 };
 
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    getCityForecast();
+    displayWeather();
+});
+
 
 async function displayWeather() {
     try {
@@ -45,11 +51,7 @@ function convertCelsiusToFahrenheit(temp) {
     return fTemp;
 }
 
-submitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    getCityForecast();
-    displayWeather();
-});
+
 
 tempSwitch.addEventListener('change', () => {
     console.log(this);
