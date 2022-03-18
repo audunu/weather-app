@@ -31,9 +31,12 @@ submitButton.addEventListener('click', (e) => {
 
 async function displayWeather() {
     try {
-        skyDiv.innerHTML = (await getCityForecast()).description;
-        tempDiv.innerHTML = (await getCityForecast()).temperature;
-        windDiv.innerHTML = (await getCityForecast()).wind;
+        const description = (await getCityForecast()).description;
+        const temp = (await getCityForecast()).temperature;
+        const wind = (await getCityForecast()).wind;
+        skyDiv.innerHTML = description;
+        tempDiv.innerHTML = `${convertKelvinToCelsius(temp)}°C`;
+        windDiv.innerHTML = `Wind: ${wind} m/s`;
     } catch (error) {
         console.log(error);
     }
@@ -42,17 +45,36 @@ async function displayWeather() {
 function convertFahrenheitToCelsius(temp) {
     const fTemp = temp;
     const cTemp = (fTemp - 32) * 5 / 9;
-    return cTemp;
+    return Math.round((cTemp + Number.EPSILON) * 10) / 10;
 }
 
 function convertCelsiusToFahrenheit(temp) {
     const cTemp = temp;
     const fTemp = cTemp * 9 / 5 + 32;
-    return fTemp;
+    return Math.round((fTemp + Number.EPSILON) * 10) / 10;
 }
 
+function convertKelvinToFahrenheit(temp) {
+    const kTemp = temp;
+    const fTemp = ((kTemp - 273.15) * 1.8) + 32;
+    return Math.round((fTemp + Number.EPSILON) * 10) / 10;
+}
 
+function convertKelvinToCelsius(temp) {
+    const kTemp = temp;
+    const cTemp = temp - 273.15;
+    return Math.round((cTemp + Number.EPSILON) * 10) / 10;
+}
 
-tempSwitch.addEventListener('change', () => {
-    console.log(this);
+tempSwitch.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        const currentTemp = Number(tempDiv.textContent.split('°')[0]);
+        const convertedTemp = convertCelsiusToFahrenheit(currentTemp);
+        tempDiv.textContent = `${convertedTemp}°F`;
+    }
+    else if (!e.target.checked) {
+        const currentTemp = Number(tempDiv.textContent.split('°')[0]);
+        const convertedTemp = convertFahrenheitToCelsius(currentTemp);
+        tempDiv.textContent = `${convertedTemp}°C`;
+    }
 })
