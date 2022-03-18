@@ -4,6 +4,7 @@ const skyDiv = document.querySelector('.sky');
 const tempDiv = document.querySelector('.temp');
 const windDiv = document.querySelector('.wind');
 const tempSwitch = document.querySelector('#tempswitch');
+const locationTitle = document.querySelector('.location');
 
 
 async function getCityForecast() {
@@ -37,6 +38,7 @@ async function displayWeather() {
         skyDiv.innerHTML = description;
         tempDiv.innerHTML = `${convertKelvinToCelsius(temp)}°C`;
         windDiv.innerHTML = `Wind: ${wind} m/s`;
+        locationTitle.textContent = searchField.value;
     } catch (error) {
         console.log(error);
     }
