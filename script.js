@@ -3,6 +3,7 @@ const submitButton = document.querySelector('input[type=submit]');
 const skyDiv = document.querySelector('.sky');
 const tempDiv = document.querySelector('.temp');
 const windDiv = document.querySelector('.wind');
+const tempSwitch = document.querySelector('#tempswitch');
 
 
 async function getCityForecast() {
@@ -16,11 +17,10 @@ async function getCityForecast() {
             wind: weatherData.wind.speed
         }
     } catch (error) {
-        alert(error);
+        console.log(error);
     }
 
 };
-
 
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -28,14 +28,31 @@ submitButton.addEventListener('click', (e) => {
     displayWeather();
 });
 
+
 async function displayWeather() {
     try {
         skyDiv.innerHTML = (await getCityForecast()).description;
         tempDiv.innerHTML = (await getCityForecast()).temperature;
         windDiv.innerHTML = (await getCityForecast()).wind;
     } catch (error) {
-        alert(error);
+        console.log(error);
     }
 }
 
-//test
+function convertFahrenheitToCelsius(temp) {
+    const fTemp = temp;
+    const cTemp = (fTemp - 32) * 5 / 9;
+    return cTemp;
+}
+
+function convertCelsiusToFahrenheit(temp) {
+    const cTemp = temp;
+    const fTemp = cTemp * 9 / 5 + 32;
+    return fTemp;
+}
+
+
+
+tempSwitch.addEventListener('change', () => {
+    console.log(this);
+})
